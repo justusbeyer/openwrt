@@ -166,6 +166,19 @@ endef
 
 $(eval $(call KernelPackage,udptunnel6))
 
+define KernelPackage/fou
+  SUBMENU:=$(NETWORK_SUPPORT_MENU)
+  TITLE:=Foo-over-UDP (FOU) Support
+  DEPENDS:= \
+	+kmod-iptunnel \
+	+kmod-udptunnel4 \
+	+IPV6:kmod-udptunnel6
+  KCONFIG:=CONFIG_NET_FOU
+  FILES:=$(LINUX_DIR)/net/ipv4/fou.ko  
+  AUTOLOAD:=$(call AutoLoad,32,fou)
+endef
+
+$(eval $(call KernelPackage,fou))
 
 define KernelPackage/vxlan
   SUBMENU:=$(NETWORK_SUPPORT_MENU)
